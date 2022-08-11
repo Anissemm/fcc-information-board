@@ -9,7 +9,7 @@ const getReplies = async (req, res) => {
     try {
         const thread = await Thread.findOne({ board, _id: thread_id }).select('-reported -delete_password');
 
-        const replies = await Reply.find({ board, parentThread: thread_id }).select('-reported -delete_password').sort('-created_on');
+        const replies = await Reply.find({ board, parentThread: thread_id }).select('-reported -delete_password').sort({ 'created_on': -1 });
 
         return res.json({ ...thread.toObject(), replies })
 
